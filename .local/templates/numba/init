@@ -1,0 +1,7 @@
+mkdir $1
+cd $1
+cp -r ~/.local/templates/numba/. . && rm init
+source ~/miniconda3/bin/activate
+conda create -y -n $1 python=3.12.8
+conda activate $1
+pip install -r requirements.txt
