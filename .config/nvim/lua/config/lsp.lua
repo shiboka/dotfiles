@@ -1,5 +1,6 @@
 local lspconfig = require('lspconfig')
 
+lspconfig.clangd.setup{}
 lspconfig.pyright.setup{}
 
 lspconfig.ts_ls.setup({

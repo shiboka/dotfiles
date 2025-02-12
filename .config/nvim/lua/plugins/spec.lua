@@ -129,18 +129,29 @@ return {
       dim = { enabled = false },
       explorer = {
         enabled = true,
-        replace_netrw = true
+        replace_netrw = true,
       },
       git = { enabled = false },
       gitbrowse = { enabled = false },
       image = { enabled = false },
-      indent = { enabled = false },
+      indent = { enabled = true },
       input = { enabled = false },
       layout = { enabled = false },
       lazygit = { enabled = false },
       notifier = { enabled = false },
       notify = { enabled = false },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        sources = {
+          explorer = {
+            layout = {
+              layout = {
+                width = 0.175,
+              },
+            },
+          },
+        },
+      },
       profiler = { enabled = false },
       quickfile = { enabled = true },
       rename = { enabled = false },
@@ -148,7 +159,7 @@ return {
       scratch = { enabled = false },
       scroll = { enabled = false },
       statuscolumn = { enabled = false },
-      terminal = { enabled = false },
+      terminal = { enabled = true },
       toggle = { enabled = false },
       util = { enabled = false },
       win = { enabled = false },
