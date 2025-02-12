@@ -21,6 +21,94 @@ return {
       })
     end,
   },
+  { 'AlexvZyl/nordic.nvim' },
+  {
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    config = function()
+      require('kanagawa').setup({
+        transparent = true,
+        background = {
+          dark = 'dragon', -- wave, dragon
+          light = 'lotus', -- lotus
+        },
+        overrides = function(colors)
+          return {
+            Normal = { bg = 'none' },
+            NormalFloat = { bg = 'none' },
+            FloatTitle = { bg = 'none' },
+            FloatBorder = { bg = 'none' },
+            LineNr = { bg = 'none' },
+            ColorColumn = { bg = 'none' },
+            SignColumn = { bg = 'none' },
+            Folded = { bg = 'none' },
+            FoldColumn = { bg = 'none' },
+            CursorLine = { bg = 'none' },
+            CursorColumn = { bg = 'none' },
+            VertSplit = { bg = 'none' },
+            TabLineSel = { bg = 'none' },
+            DiagnosticSignWarn = { bg = 'none' },
+            DiagnosticSignInfo = { bg = 'none' },
+            DiagnosticSignHint = { bg = 'none' },
+            DiagnosticSignError = { bg = 'none' },
+            SnacksPickerInputTitle = { bg = 'none' },
+            SnacksPickerInputBorder = { bg = 'none' },
+          }
+        end,
+      })
+    end,
+  },
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    config = function()
+      require('tokyonight').setup({
+        style = 'night', -- storm, moon, night
+        light_style = 'day', -- day
+        transparent = true,
+        plugins = {
+          auto = true,
+        },
+        on_highlights = function(hl, c)
+          hl.Normal = { bg = 'none' }
+          hl.NormalFloat = { bg = 'none' }
+          hl.FloatTitle = { bg = 'none' }
+          hl.FloatBorder = { bg = 'none' }
+          hl.SnacksPickerInputTitle = { bg = 'none' }
+          hl.SnacksPickerInputBorder = { bg = 'none' }
+        end,
+      })
+    end,
+  },
+  {
+    'rose-pine/neovim',
+    lazy = false,
+    config = function()
+      require('rose-pine').setup({
+        variant = 'auto', -- auto, main, moon, dawn
+        dark_variant = 'main', -- main, moon, dawn
+        styles = {
+          bold = true,
+          italic = false,
+          transparency = true,
+        },
+      })
+    end,
+  },
+  {
+    'catppuccin/nvim',
+    lazy = false,
+    config = function()
+      require('catppuccin').setup({
+        flavour = 'auto', -- auto, latte, frappe, macchiato, mocha
+        background = {
+          dark = 'mocha',
+          light = 'latte',
+        },
+        transparent_background = true,
+      })
+    end,
+  },
   { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/nvim-cmp' },
   { 'hrsh7th/cmp-nvim-lsp' },
@@ -54,7 +142,7 @@ return {
       notify = { enabled = false },
       picker = { enabled = true },
       profiler = { enabled = false },
-      quickfile = { enabled = false },
+      quickfile = { enabled = true },
       rename = { enabled = false },
       scope = { enabled = false },
       scratch = { enabled = false },
