@@ -114,3 +114,20 @@ eval "$(pyenv init - bash)"
 
 PROMPT='%F{cyan}%n%F{magenta}@%F{cyan}%m%f:%F{magenta}%~ %(?.%F{green}.%F{red})%? %F{cyan}%# %f'
 
+mkdir -p $HOME/.venv
+if [[ ! -d $HOME/.venv/home ]]; then
+  python -m venv $HOME/.venv/home
+fi
+
+. $HOME/.venv/home/bin/activate
+
+if [[ ! $(pip freeze | grep pnu-fortune) ]]; then
+  pip install pnu-fortune
+  deactivate
+  . $HOME/.venv/home/bin/activate
+fi
+
+export FORTUNE_PATH=$HOME/.venv/home/share/games/fortune
+
+fortune -os | cowsay
+
