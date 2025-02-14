@@ -2,8 +2,8 @@ npm create vite@latest $1 -- --template react
 cd $1
 cp -r ~/.local/templates/react/. . && rm init
 npm install
-source ~/miniconda3/bin/activate
-conda create -y -n $1 python=3.12.8
-conda activate $1
+python -m venv ~/.venv/$1
+. ~/.venv/$1/bin/activate
 pip install -r requirements.txt
 npm run build
+
