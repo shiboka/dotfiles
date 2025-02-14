@@ -129,5 +129,5 @@ fi
 
 export FORTUNE_PATH=$HOME/.venv/home/share/games/fortune
 
-fortune -os | cowsay
+fortune -o | cowsay
 
