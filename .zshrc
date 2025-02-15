@@ -125,7 +125,7 @@ fi
 if $PYTHON_ENABLED; then
   if [[ ! -d $HOME/.pyenv ]]; then
     git clone https://github.com/pyenv/pyenv $HOME/.pyenv
-    sudo apt install build-essential libssl-dev zlib1g-dev
+    sudo apt install -y build-essential libssl-dev zlib1g-dev
     $HOME/.pyenv/bin/pyenv init
 
     print -P '%B%F{red}PLEASE RESTART YOUR SHELL'
