@@ -1,3 +1,6 @@
+PYTHON_ENABLED=false
+ENSURE_INSTALLED='git net-tools dnsutils cowsay'
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.nimble/bin:$HOME/.ruby/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -102,32 +105,62 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#alias nas=/mnt/nas
+#alias pak=/mnt/expansion-pak
+#export dnas=/mnt/nas
+#export dpak=/mnt/expansion-pak
+#export dstor=/mnt/storage
+#export dnvme=/mnt/nvme
 
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export GEM_HOME=~/.ruby
 export C_INCLUDE_PATH=/usr/include/lua5.1:$C_INCLUDE_PATH
 
-# PYENV
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - bash)"
+if [[ $(command -v $(echo $ENSURE_INSTALLED) | wc -l) != $(echo $ENSURE_INSTALLED | tr -s ' ' '\n' | wc -l) ]]; then
+  sudo apt install -y $(echo $ENSURE_INSTALLED)
+fi
+
+if $PYTHON_ENABLED; then
+  if [[ ! -d $HOME/.pyenv ]]; then
+    git clone https://github.com/pyenv/pyenv $HOME/.pyenv
+    sudo apt install build-essential libssl-dev zlib1g-dev
+    $HOME/.pyenv/bin/pyenv init
+
+    print -P '%B%F{red}PLEASE RESTART YOUR SHELL'
+    exit 0
+  fi
+
+  # PYENV
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init - bash)"
+
+  pyenv_ver=($(pyenv version))
+
+  if [[ '3.12.9' != ${pyenv_ver[1]} ]]; then
+    pyenv install 3.12.9
+    pyenv global 3.12.9
+  fi
+
+  mkdir -p $HOME/.venv
+  if [[ ! -d $HOME/.venv/home ]]; then
+    python -m venv $HOME/.venv/home
+  fi
+
+  . $HOME/.venv/home/bin/activate
+
+  if [[ ! $(pip freeze | grep pnu-fortune) ]]; then
+    pip install pnu-fortune
+    deactivate
+    . $HOME/.venv/home/bin/activate
+  fi
+fi
+
 
 PROMPT='%F{cyan}%n%F{magenta}@%F{cyan}%m%f:%F{magenta}%~ %(?.%F{green}.%F{red})%? %F{cyan}%# %f'
 
-mkdir -p $HOME/.venv
-if [[ ! -d $HOME/.venv/home ]]; then
-  python -m venv $HOME/.venv/home
+if $PYTHON_ENABLED; then
+  export FORTUNE_PATH=$HOME/.venv/home/share/games/fortune
+  fortune -o | cowsay
 fi
-
-. $HOME/.venv/home/bin/activate
-
-if [[ ! $(pip freeze | grep pnu-fortune) ]]; then
-  pip install pnu-fortune
-  deactivate
-  . $HOME/.venv/home/bin/activate
-fi
-
-export FORTUNE_PATH=$HOME/.venv/home/share/games/fortune
-
-fortune -o | cowsay
 
