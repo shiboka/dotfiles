@@ -1,5 +1,5 @@
-PYTHON_ENABLED=false
-ENSURE_INSTALLED='git net-tools dnsutils cowsay'
+PYTHON_ENABLED=true
+ENSURE_INSTALLED='vim git net-tools dnsutils cowsay'
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.nimble/bin:$HOME/.ruby/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -112,11 +112,13 @@ source $ZSH/oh-my-zsh.sh
 #export dstor=/mnt/storage
 #export dnvme=/mnt/nvme
 
+PROMPT='%F{cyan}%n%F{magenta}@%F{cyan}%m%f:%F{magenta}%~ %(?.%F{green}.%F{red})%? %F{cyan}%# %f'
+
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export GEM_HOME=~/.ruby
 export C_INCLUDE_PATH=/usr/include/lua5.1:$C_INCLUDE_PATH
 
-if [[ $(command -v $(echo $ENSURE_INSTALLED) | wc -l) != $(echo $ENSURE_INSTALLED | tr -s ' ' '\n' | wc -l) ]]; then
+if [[ $(($(apt list --installed $(echo $ENSURE_INSTALLED) | wc -l) - 1)) != $(echo $ENSURE_INSTALLED | tr -s ' ' '\n' | wc -l) ]]; then
   sudo apt install -y $(echo $ENSURE_INSTALLED)
 fi
 
@@ -157,7 +159,6 @@ if $PYTHON_ENABLED; then
 fi
 
 
-PROMPT='%F{cyan}%n%F{magenta}@%F{cyan}%m%f:%F{magenta}%~ %(?.%F{green}.%F{red})%? %F{cyan}%# %f'
 
 if $PYTHON_ENABLED; then
   export FORTUNE_PATH=$HOME/.venv/home/share/games/fortune
