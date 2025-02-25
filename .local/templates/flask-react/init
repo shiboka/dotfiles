@@ -1,8 +1,9 @@
 npm create vite@latest $1 -- --template react
 cd $1
 cp -r ~/.local/templates/react/. . && rm init
+npm install
 python -m venv ~/.venv/$1
 . ~/.venv/$1/bin/activate
 pip install -r requirements.txt
-npm install
 npm run build
+
